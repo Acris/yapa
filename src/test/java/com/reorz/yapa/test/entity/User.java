@@ -8,8 +8,19 @@ package com.reorz.yapa.test.entity;
  * @author Acris
  */
 public class User {
+    /**
+     * 用户ID
+     */
     private Long id;
+
+    /**
+     * 用户名称
+     */
     private String name;
+
+    /**
+     * 年龄
+     */
     private Integer age;
 
     public User() {

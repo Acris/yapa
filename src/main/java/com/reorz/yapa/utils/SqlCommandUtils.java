@@ -26,12 +26,20 @@ public class SqlCommandUtils {
         ANNOTATION_TYPES.add(Delete.class);
     }
 
+    /**
+     * 获取要执行的SQL类型
+     *
+     * @param method 方法对象
+     * @return SQL类型枚举
+     * @see SqlCommandType
+     */
     public static SqlCommandType getSqlCommandType(Method method) {
         Class<? extends Annotation> type = null;
         for (Class<? extends Annotation> annotationType : ANNOTATION_TYPES) {
             Annotation annotation = method.getAnnotation(annotationType);
             if (annotation != null) {
                 type = annotationType;
+                break;
             }
         }
         if (type == null) {

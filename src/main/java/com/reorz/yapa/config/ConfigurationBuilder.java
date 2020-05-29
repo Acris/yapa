@@ -21,7 +21,7 @@ import java.util.Set;
 /**
  * 配置构造类
  * <p>
- * 通过解析XML配置文件以及扫描注解，生成Configuration对象。
+ * 通过解析YAML配置文件以及扫描注解，生成Configuration对象。
  *
  * @author Acris
  */
@@ -53,7 +53,7 @@ public class ConfigurationBuilder {
         // 扫描Mapper
         logger.debug("扫描Mapper...");
         ConfigurationProperties.Mappers mappersProperties = configurationProperties.getMappers();
-        Map<String, MappedStatement> mappedStatement = new HashMap<>();
+        Map<String, MappedStatement> mappedStatementMap = new HashMap<>();
         Reflections reflections = new Reflections(mappersProperties.getBasePackage(), new SubTypesScanner(false));
         Set<Class<?>> allMappers = reflections.getSubTypesOf(Object.class);
         // 扫描Mapper中的带CRUD注解的方法，拼装mappedStatement。
@@ -92,10 +92,10 @@ public class ConfigurationBuilder {
                 if (resultTypeAnno != null) {
                     resultType = resultTypeAnno.value().getName();
                 }
-                mappedStatement.put(statementId, new MappedStatement(statementId, parameterType, resultType, sql));
+                mappedStatementMap.put(statementId, new MappedStatement(statementId, parameterType, resultType, sql));
             }
         });
-        configuration.setMappedStatementMap(mappedStatement);
+        configuration.setMappedStatementMap(mappedStatementMap);
         return configuration;
     }
 }

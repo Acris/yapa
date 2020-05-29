@@ -69,7 +69,7 @@ public interface SqlSession extends Closeable {
     void close();
 
     /**
-     * 查询当前配置
+     * 获取当前配置
      *
      * @return 当前配置
      */

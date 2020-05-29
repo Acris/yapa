@@ -1,8 +1,10 @@
 yapa:
+  # 数据源配置
   datasource:
     driver: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://localhost:3306/yapa
     username: root
     password: BiNBuelQoiDEmPyc78qr
+  # 需要扫描的Mapper包配置
   mappers:
     base-package: com.reorz.yapa.test.mapper

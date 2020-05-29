@@ -1,5 +1,6 @@
 package com.reorz.yapa.core;
 
+import com.reorz.yapa.exceptions.PersistenceException;
 import com.reorz.yapa.mapping.BoundSql;
 
 import java.util.ArrayList;
@@ -38,15 +39,17 @@ public class MappedStatement {
     }
 
     public BoundSql getBoundSql() {
-        List<String> parameterMappings = new ArrayList<>();
-        String parsedSql = sql;
+        if (sql == null) {
+            throw new PersistenceException("SQL could not be null.");
+        }
+        List<String> parameterNameList = new ArrayList<>();
         Pattern pattern = Pattern.compile("#\\{(\\w+)}");
         Matcher matcher = pattern.matcher(sql);
         while (matcher.find()) {
-            parameterMappings.add(matcher.group(1));
+            parameterNameList.add(matcher.group(1));
         }
-        parsedSql = matcher.replaceAll("?");
-        return new BoundSql(parsedSql, parameterMappings);
+        String parsedSql = matcher.replaceAll("?");
+        return new BoundSql(parsedSql, parameterNameList);
     }
 
 

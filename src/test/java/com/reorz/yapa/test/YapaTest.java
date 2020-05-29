@@ -22,9 +22,11 @@ public class YapaTest {
 
     @BeforeEach
     public void initIPersistence() {
-        // 加载配置文件
+        // 加载配置文件，生成SqlSessionFactory
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build();
+        // 生成SqlSession
         sqlSession = sqlSessionFactory.openSession();
+        // 通过动态代理生成Mapper
         userMapper = sqlSession.getMapper(UserMapper.class);
     }
 

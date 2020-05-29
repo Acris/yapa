@@ -15,18 +15,18 @@ public class BoundSql {
     /**
      * 占位符中的参数值
      */
-    private final List<String> parameterMappings;
+    private final List<String> parameterNameList;
 
-    public BoundSql(String sql, List<String> parameterMappings) {
+    public BoundSql(String sql, List<String> parameterNameList) {
         this.sql = sql;
-        this.parameterMappings = parameterMappings;
+        this.parameterNameList = parameterNameList;
     }
 
     public String getSql() {
         return sql;
     }
 
-    public List<String> getParameterMappings() {
-        return parameterMappings;
+    public List<String> getParameterNameList() {
+        return parameterNameList;
     }
 }

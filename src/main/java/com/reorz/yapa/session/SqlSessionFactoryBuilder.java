@@ -13,6 +13,12 @@ public class SqlSessionFactoryBuilder {
         return build(DEFAULT_CONFIG_FILE_PATH);
     }
 
+    /**
+     * 生成SqlSessionFactory实列
+     *
+     * @param configFilePath 配置文件路径
+     * @return SqlSessionFactory实列
+     */
     public SqlSessionFactory build(String configFilePath) {
         InputStream inputStream = ResourcesUtils.getResourceAsStream(configFilePath);
         ConfigurationBuilder configurationBuilder = new ConfigurationBuilder(inputStream);

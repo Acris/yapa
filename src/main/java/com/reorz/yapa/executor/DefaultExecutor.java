@@ -40,11 +40,11 @@ public class DefaultExecutor implements Executor {
         String parameterType = mappedStatement.getParameterType();
         BoundSql boundSql = mappedStatement.getBoundSql();
         String sql = boundSql.getSql();
-        List<String> parameterMappings = boundSql.getParameterNameList();
+        List<String> parameterNameList = boundSql.getParameterNameList();
         PreparedStatement pstmt = connection.prepareStatement(sql);
         int affectedRows;
         try {
-            handleParameters(parameters, parameterType, parameterMappings, pstmt);
+            handleParameters(parameters, parameterType, parameterNameList, pstmt);
             affectedRows = pstmt.executeUpdate();
         } catch (Exception e) {
             logger.error("Execute query failed. Cause: " + e.getMessage());
@@ -53,13 +53,13 @@ public class DefaultExecutor implements Executor {
         return affectedRows;
     }
 
-    private void handleParameters(Object[] parameters, String parameterType, List<String> parameterMappings, PreparedStatement pstmt) throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException, SQLException {
+    private void handleParameters(Object[] parameters, String parameterType, List<String> parameterNameList, PreparedStatement pstmt) throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException, SQLException {
         Class<?> parameterTypeClass = null;
         if (parameterType != null) {
             parameterTypeClass = ClassUtils.parseType(parameterType);
         }
-        for (int i = 0; i < parameterMappings.size(); i++) {
-            String paramName = parameterMappings.get(i);
+        for (int i = 0; i < parameterNameList.size(); i++) {
+            String paramName = parameterNameList.get(i);
             Object paramObj;
             if (parameterTypeClass == null || parameterTypeClass.isPrimitive()) {
                 paramObj = parameters[i];

@@ -1,2 +1,2 @@
 # Yapa
-Yet Another persistence framework made by Acris
+Yet Another Persistence framework made by Acris

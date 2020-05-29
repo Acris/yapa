@@ -1,0 +1,8 @@
+yapa:
+  datasource:
+    driver: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/yapa
+    username: root
+    password: BiNBuelQoiDEmPyc78qr
+  mappers:
+    base-package: com.reorz.yapa.test.mapper

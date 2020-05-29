@@ -58,14 +58,14 @@ public class YapaTest {
     @Test
     public void testInsert() {
         long userId = 8;
-        User user = new User(userId, "小刘", 28);
+        User user = new User(userId, "张小六", 28);
         userMapper.addUser(user);
     }
 
     @Test
     public void testUpdate() {
         long userId = 8;
-        User user = new User(userId, "小黄", 30);
+        User user = new User(userId, "王小明", 30);
         userMapper.updateUserById(user);
     }
 

@@ -85,9 +85,9 @@ public interface SqlSession extends Closeable {
     <T> T getMapper(Class<T> type);
 
     /**
-     * 获取数据库连结
+     * 获取数据库连接
      *
-     * @return 数据库连结
+     * @return 数据库连接
      */
     Connection getConnection();
 }

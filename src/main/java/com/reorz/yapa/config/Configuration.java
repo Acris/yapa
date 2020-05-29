@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * IPersistence核心配置类
+ * Yapa核心配置类
  *
  * @author Acris
  */

@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 /**
- * IPersistence测试类
+ * Yapa测试类
  *
  * @author Acris
  */
@@ -21,7 +21,7 @@ public class YapaTest {
     private SqlSession sqlSession;
 
     @BeforeEach
-    public void initIPersistence() {
+    public void initYapa() {
         // 加载配置文件，生成SqlSessionFactory
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build();
         // 生成SqlSession

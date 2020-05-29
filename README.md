@@ -106,7 +106,7 @@ public interface UserMapper {
 ### 获取SqlSession及Mapper
 代码示例：
 ```java
-// 加载配置文件，生成SqlSessionFactory
+// 加载配置文件，生成SqlSessionFactory，如果配置文件名不是yapa.yml,则需要在build()方法传入对应的配置文件路径。
 SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build();
 // 生成SqlSession
 SqlSession sqlSession = sqlSessionFactory.openSession();

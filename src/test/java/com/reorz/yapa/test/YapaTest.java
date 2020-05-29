@@ -45,7 +45,7 @@ public class YapaTest {
 
     @Test
     public void testSelectById() {
-        logger.info("开始查询ID为5的用户...");
+        logger.info("开始查询ID为2的用户...");
         long userId = 2;
         User userById = userMapper.selectById(userId);
         System.out.println(userById);

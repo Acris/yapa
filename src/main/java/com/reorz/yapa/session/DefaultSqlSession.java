@@ -4,6 +4,7 @@ import com.reorz.yapa.config.Configuration;
 import com.reorz.yapa.core.MappedStatement;
 import com.reorz.yapa.enums.SqlCommandType;
 import com.reorz.yapa.exceptions.PersistenceException;
+import com.reorz.yapa.exceptions.TooManyResultsException;
 import com.reorz.yapa.executor.Executor;
 import com.reorz.yapa.utils.SqlCommandUtils;
 import org.slf4j.Logger;
@@ -34,7 +35,14 @@ public class DefaultSqlSession implements SqlSession {
 
     @Override
     public <T> T selectOne(String statementId, Object... parameters) {
-        return null;
+        List<T> list = selectList(statementId, parameters);
+        if (list.size() == 1) {
+            return list.get(0);
+        } else if (list.size() > 1) {
+            throw new TooManyResultsException("Expected one result (or null) to be returned by selectOne(), but found: " + list.size());
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -42,7 +50,7 @@ public class DefaultSqlSession implements SqlSession {
         try {
             return executor.query(getConnection(), getMappedStatement(statementId), parameters);
         } catch (SQLException e) {
-            logger.error("Query faied. Cause: " + e.getMessage(), e);
+            logger.error("Query failed. Cause: " + e.getMessage(), e);
             throw new PersistenceException(e.getMessage());
         }
     }

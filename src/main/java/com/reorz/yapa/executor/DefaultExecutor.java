@@ -24,19 +24,21 @@ public class DefaultExecutor implements Executor {
         List<String> parameterMappings = boundSql.getParameterMappings();
         PreparedStatement pstmt = connection.prepareStatement(sql);
         List<E> results = new ArrayList<>();
+
+        if (parameterMappings.size() != parameters.length) {
+            throw new PersistenceException("Parameter must match SQL parameter placeholder.");
+        }
         try {
             for (int i = 0; i < parameterMappings.size(); i++) {
                 String paramName = parameterMappings.get(i);
                 Class<?> parameterTypeClass = Class.forName(parameterType);
-                Object paramObj = null;
-                if (parameterTypeClass == Integer.class) {
-                    paramObj = parameters[0];
-                } else if (parameterTypeClass == String.class) {
-                    paramObj = parameters[0];
+                Object paramObj;
+                if (parameterTypeClass == Long.class || parameterTypeClass == Integer.class || parameterTypeClass == String.class) {
+                    paramObj = parameters[i];
                 } else {
                     Field field = parameterTypeClass.getDeclaredField(paramName);
                     field.setAccessible(true);
-                    paramObj = field.get(parameters[0]);
+                    paramObj = field.get(parameters[i]);
                 }
                 pstmt.setObject(i + 1, paramObj);
             }
@@ -50,9 +52,13 @@ public class DefaultExecutor implements Executor {
                     String columnName = metaData.getColumnName(i + 1);
                     Object value = resultSet.getObject(columnName);
 
-                    Field field = resultTypeClass.getDeclaredField(columnName);
-                    field.setAccessible(true);
-                    field.set(resultObj, value);
+                    if (resultTypeClass == Long.class || resultTypeClass == Integer.class || resultTypeClass == String.class) {
+                        resultObj = (E) value;
+                    } else {
+                        Field field = resultTypeClass.getDeclaredField(columnName);
+                        field.setAccessible(true);
+                        field.set(resultObj, value);
+                    }
                 }
                 results.add(resultObj);
             }

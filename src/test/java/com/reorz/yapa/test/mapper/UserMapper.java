@@ -26,7 +26,7 @@ public interface UserMapper {
     @ResultType(User.class)
     List<User> selectByName(String namePatter);
 
-    @Insert("insert into user(id, name, age, createTime) values(#{id}, #{name}, #{age}, #{createTime})")
+    @Insert("insert into user(id, name, age) values(#{id}, #{name}, #{age})")
     @ParameterType(User.class)
     int addUser(User user);
 
@@ -35,5 +35,6 @@ public interface UserMapper {
     int updateUserById(User user);
 
     @Delete("delete from user where id = #{id}")
+    @ParameterType(Long.class)
     int deleteUserById(Long id);
 }

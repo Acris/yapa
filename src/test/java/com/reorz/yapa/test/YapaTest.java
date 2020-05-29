@@ -8,8 +8,6 @@ import com.reorz.yapa.test.mapper.UserMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -19,7 +17,6 @@ import java.util.List;
  * @author Acris
  */
 public class YapaTest {
-    private static final Logger logger = LoggerFactory.getLogger(YapaTest.class);
     private UserMapper userMapper;
     private SqlSession sqlSession;
 
@@ -38,14 +35,12 @@ public class YapaTest {
 
     @Test
     public void testSelectAll() {
-        logger.info("开始查询所有用户...");
         List<User> allUsers = userMapper.selectAll();
         allUsers.forEach(System.out::println);
     }
 
     @Test
     public void testSelectById() {
-        logger.info("开始查询ID为2的用户...");
         long userId = 2;
         User userById = userMapper.selectById(userId);
         System.out.println(userById);
@@ -53,9 +48,28 @@ public class YapaTest {
 
     @Test
     public void testSelectByName() {
-        logger.info("开始查询所有姓张的用户...");
         String namePatter = "张%";
         List<User> usersByName = userMapper.selectByName(namePatter);
         usersByName.forEach(System.out::println);
+    }
+
+    @Test
+    public void testInsert() {
+        long userId = 8;
+        User user = new User(userId, "小八", 28);
+        userMapper.addUser(user);
+    }
+
+    @Test
+    public void testUpdate() {
+        long userId = 8;
+        User user = new User(userId, "小黄", 30);
+        userMapper.updateUserById(user);
+    }
+
+    @Test
+    public void testDelete() {
+        long userId = 8;
+        userMapper.deleteUserById(userId);
     }
 }

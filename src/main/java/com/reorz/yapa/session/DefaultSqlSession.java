@@ -57,22 +57,38 @@ public class DefaultSqlSession implements SqlSession {
 
     @Override
     public int insert(String statementId, Object... parameters) {
-        return 0;
+        try {
+            return executor.update(getConnection(), getMappedStatement(statementId), parameters);
+        } catch (SQLException e) {
+            logger.error("Insert failed. Cause: " + e.getMessage(), e);
+            throw new PersistenceException(e.getMessage());
+        }
     }
 
     @Override
     public int update(String statementId, Object... parameters) {
-        return 0;
+        try {
+            return executor.update(getConnection(), getMappedStatement(statementId), parameters);
+        } catch (SQLException e) {
+            logger.error("Update failed. Cause: " + e.getMessage(), e);
+            throw new PersistenceException(e.getMessage());
+        }
     }
 
     @Override
     public int delete(String statementId, Object... parameters) {
-        return 0;
+        try {
+            return executor.update(getConnection(), getMappedStatement(statementId), parameters);
+        } catch (SQLException e) {
+            logger.error("Delete failed. Cause: " + e.getMessage(), e);
+            throw new PersistenceException(e.getMessage());
+        }
     }
 
     @Override
     public void close() {
         try {
+            logger.debug("Closing connection...");
             getConnection().close();
         } catch (SQLException e) {
             logger.error("Close connection failed. Cause: " + e.getMessage(), e);

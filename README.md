@@ -4,11 +4,11 @@ Yet Another Persistence framework made by Acris
 ## Quick Start
 
 ### 引入依赖
-通过引入编译后的jar文件，或者通过Maven等引入依赖（未发布到中央仓库）:
+通过引入编译后的jar文件，或者通过Maven等引入依赖:
 ```xml
 <!-- Yapa -->
 <dependency>
-    <groupId>com.reorz</groupId>
+    <groupId>com.reorz.yapa</groupId>
     <artifactId>yapa</artifactId>
     <version>1.0.0</version>
 </dependency>

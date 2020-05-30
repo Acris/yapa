@@ -61,7 +61,7 @@ public class DefaultExecutor implements Executor {
         for (int i = 0; i < parameterNameList.size(); i++) {
             String paramName = parameterNameList.get(i);
             Object paramObj;
-            if (parameterTypeClass == null || parameterTypeClass.isPrimitive()) {
+            if (parameterTypeClass == null || ClassUtils.isSimpleType(parameterTypeClass)) {
                 paramObj = parameters[i];
             } else {
                 Field field = parameterTypeClass.getDeclaredField(paramName);
@@ -87,7 +87,7 @@ public class DefaultExecutor implements Executor {
                 String columnName = metaData.getColumnName(i + 1);
                 Object value = resultSet.getObject(columnName);
 
-                if (resultTypeClass == null || resultTypeClass.isPrimitive()) {
+                if (resultTypeClass == null || ClassUtils.isSimpleType(resultTypeClass)) {
                     resultObj = (E) value;
                 } else {
                     Field field = resultTypeClass.getDeclaredField(columnName);
